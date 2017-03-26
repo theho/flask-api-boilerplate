@@ -1,3 +1,30 @@
 # Included because many Paas's require a requirements.txt file in the project root
 # Just installs the production requirements.
--r requirements/prod.txt
+
+# Everything needed in production
+
+# Flask
+Flask==0.12
+MarkupSafe==1.0
+Werkzeug==0.12.1
+Jinja2==2.9.5
+itsdangerous==0.24
+click>=5.0
+
+# Database
+Flask-SQLAlchemy==2.2
+psycopg2==2.7.1
+SQLAlchemy==1.1.5
+
+# Migrations
+Flask-Migrate==2.0.3
+
+# Deployment
+gunicorn>=19.1.1
+gevent
+
+# Auth
+Flask-Bcrypt==0.7.1
+
+# Restful API
+Flask-Classful==0.13.1

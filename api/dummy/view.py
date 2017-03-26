@@ -8,4 +8,4 @@ class DummyView(FlaskView):
         return 'I am such a dummy'
 
     def get(self, id):
-        return '{} is such a dummy {}'.format(id)
+        return '{} is such a dummy'.format(id)

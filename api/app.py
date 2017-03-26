@@ -6,6 +6,8 @@ from api import commands, user
 from api.extensions import bcrypt, db, migrate
 from api.settings import ProdConfig
 
+# Views
+from api.dummy.view import DummyView
 
 def create_app(config_object=ProdConfig):
     """An application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
@@ -15,7 +17,7 @@ def create_app(config_object=ProdConfig):
     app = Flask(__name__.split('.')[0])
     app.config.from_object(config_object)
     register_extensions(app)
-    register_blueprints(app)
+    register_views(app)
     # register_errorhandlers(app)
     register_shellcontext(app)
     register_commands(app)
@@ -30,8 +32,9 @@ def register_extensions(app):
     return None
 
 
-def register_blueprints(app):
+def register_views(app):
     """Register Flask blueprints."""
+    DummyView.register(app)
     return None
 
 

@@ -21,3 +21,6 @@ gunicorn>=19.1.1
 
 # Auth
 Flask-Bcrypt==0.7.1
+
+# Restful API
+Flask-Classful==0.13.1

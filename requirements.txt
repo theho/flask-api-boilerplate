@@ -25,6 +25,9 @@ gevent
 
 # Auth
 Flask-Bcrypt==0.7.1
+Flask-JWT==0.3.2
 
 # Restful API
 Flask-Classful==0.13.1
+marshmallow==2.13.4
+webargs==1.6.0

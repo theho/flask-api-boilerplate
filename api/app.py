@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
-from flask import Flask, render_template
+from flask import Flask
 
 from api import commands, user
 from api.extensions import bcrypt, db, migrate
 from api.settings import ProdConfig
+from api.user import jwt_extension
 
 # Views
 from api.dummy.view import DummyView
+from api.user.views import UsersView
+
 
 def create_app(config_object=ProdConfig):
     """An application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
@@ -28,6 +31,7 @@ def register_extensions(app):
     """Register Flask extensions."""
     bcrypt.init_app(app)
     db.init_app(app)
+    jwt_extension.init_app(app)
     migrate.init_app(app, db)
     return None
 
@@ -35,6 +39,8 @@ def register_extensions(app):
 def register_views(app):
     """Register Flask blueprints."""
     DummyView.register(app)
+    UsersView.register(app)
+
     return None
 
 
@@ -52,6 +58,7 @@ def register_views(app):
 
 def register_shellcontext(app):
     """Register shell context objects."""
+
     def shell_context():
         """Shell context objects."""
         return {

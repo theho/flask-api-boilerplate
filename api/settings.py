@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Application configuration."""
 import os
+import datetime
 
 
 class Config(object):
@@ -11,6 +12,11 @@ class Config(object):
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     BCRYPT_LOG_ROUNDS = 13
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # JWT setup
+    JWT_AUTH_URL_RULE = '/v1/users/token'
+    JWT_EXPIRATION_DELTA = datetime.timedelta(days=90)
+    JWT_AUTH_HEADER_PREFIX = 'Bearer'
 
 
 class ProdConfig(Config):

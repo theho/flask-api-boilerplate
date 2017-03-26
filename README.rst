@@ -84,13 +84,12 @@ For a full migration command reference, run ``flask db --help``.
 Docker Build & Run
 ------------------
 
+Shell commands to build and run flask in docker container ::
 
-```
-docker build . -t flask-api
+    docker build . -t flask-api
 
-# Mapping to host's port 5009
-docker run -d -p 5009:5000 flask-api
+    # Mapping to host's port 5009
+    docker run -d -p 5009:5000 flask-api
 
-curl http://localhost:5009/v1/dummy/
+    curl http://localhost:5009/v1/dummy/
 
-```

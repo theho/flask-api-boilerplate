@@ -79,3 +79,18 @@ This will generate a new migration script. Then run ::
 To apply the migration.
 
 For a full migration command reference, run ``flask db --help``.
+
+
+Docker Build & Run
+------------------
+
+
+```
+docker build . -t flask-api
+
+# Mapping to host's port 5009
+docker run -d -p 5009:5000 flask-api
+
+curl http://localhost:5009/v1/dummy/
+
+```

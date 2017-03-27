@@ -42,10 +42,3 @@ def db(app):
     _db.session.close()
     _db.drop_all()
 
-
-@pytest.fixture
-def user(db):
-    """A user for the tests."""
-    user = UserFactory(password='myprecious')
-    db.session.commit()
-    return user

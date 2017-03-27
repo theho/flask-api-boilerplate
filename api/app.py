@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
-from flask import Flask
+from flask import Flask, jsonify
+from werkzeug.exceptions import HTTPException
+from werkzeug.exceptions import default_exceptions
 
 from api import commands, user
 from api.extensions import bcrypt, db, migrate
@@ -21,7 +23,7 @@ def create_app(config_object=ProdConfig):
     app.config.from_object(config_object)
     register_extensions(app)
     register_views(app)
-    # register_errorhandlers(app)
+    register_errorhandlers(app)
     register_shellcontext(app)
     register_commands(app)
     return app
@@ -44,16 +46,25 @@ def register_views(app):
     return None
 
 
-# def register_errorhandlers(app):
-#     """Register error handlers."""
-#     def render_error(error):
-#         """Render error template."""
-#         # If a HTTPException, pull the `code` attribute; default to 500
-#         error_code = getattr(error, 'code', 500)
-#         return render_template('{0}.html'.format(error_code)), error_code
-#     for errcode in [401, 404, 500]:
-#         app.errorhandler(errcode)(render_error)
-#     return None
+# TODO: better errorhandler logic !
+def register_errorhandlers(app):
+    """Register error handlers."""
+
+    def render_error(error):
+        response = jsonify(message=str(error))
+
+        if isinstance(error, HTTPException):
+            response.status_code = error.code
+        else:
+            response.status_code = 500
+        return response
+
+    for code in default_exceptions.keys():
+        app.errorhandler(code)(render_error)
+
+    app.errorhandler(Exception)(render_error)
+
+    return None
 
 
 def register_shellcontext(app):
